@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+:root {
+  /* 5 Iconic Warm Retro Colors from User Reference Image */
+  --c-petrol: #264653;     /* Color 1: Deep Petrol Navy */
+  --c-teal: #2A9D8F;       /* Color 2: Persian Green Teal */
+  --c-gold: #E9C46A;       /* Color 3: Saffron Mustard Gold */
+  --c-apricot: #F4A261;    /* Color 4: Warm Sandy Apricot */
+  --c-coral: #E76F51;      /* Color 5: Burnt Sienna Coral */
+
+  --color-pm-bg: #FFFFFF;
+  --color-pm-surface: #FFFFFF;
+  --color-pm-border: #E2E8F0;
+  --color-pm-text: #172B4D;
+  --color-pm-muted: #626F86;
+}
+
+body {
+  background-color: #FFFFFF;
+  color: #172B4D;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* Custom scrollbar in sleek styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F8FAFC;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+@media print {
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+}

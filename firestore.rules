@@ -1,0 +1,83 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isValidProject(data) {
+      return data.name is string && data.name.size() > 0 && data.name.size() <= 200
+        && data.startDate is string && data.startDate.size() <= 20
+        && data.targetEndDate is string && data.targetEndDate.size() <= 20;
+    }
+
+    function isValidMilestone(data) {
+      return data.id is string && data.id.size() > 0 && data.id.size() <= 50
+        && data.trade is string && data.trade.size() > 0 && data.trade.size() <= 50
+        && data.name is string && data.name.size() > 0 && data.name.size() <= 200
+        && data.startDate is string && data.startDate.size() <= 20
+        && data.endDate is string && data.endDate.size() <= 20
+        && data.progress is number && data.progress >= 0 && data.progress <= 100
+        && data.status is string && data.status.size() <= 50;
+    }
+
+    function isValidProcurement(data) {
+      return data.id is string && data.id.size() > 0 && data.id.size() <= 50
+        && data.category is string && data.category.size() <= 50
+        && data.name is string && data.name.size() > 0 && data.name.size() <= 200
+        && data.unitPrice is number && data.unitPrice >= 0
+        && data.totalQty is number && data.totalQty >= 0
+        && data.subtotal is number && data.subtotal >= 0
+        && data.status is string && data.status.size() <= 50;
+    }
+
+    function isValidTodo(data) {
+      return data.id is string && data.id.size() > 0 && data.id.size() <= 50
+        && data.title is string && data.title.size() > 0 && data.title.size() <= 200
+        && data.completed is bool
+        && data.category is string && data.category.size() <= 50;
+    }
+
+    function isValidVendor(data) {
+      return data.id is string && data.id.size() > 0 && data.id.size() <= 50
+        && data.name is string && data.name.size() > 0 && data.name.size() <= 100
+        && data.serviceCategory is string && data.serviceCategory.size() <= 100;
+    }
+
+    match /projects/{projectId} {
+      allow read: if true;
+      allow create, update: if isValidProject(request.resource.data);
+      allow delete: if false;
+    }
+
+    match /milestones/{milestoneId} {
+      allow read: if true;
+      allow create, update: if isValidMilestone(request.resource.data);
+      allow delete: if true;
+    }
+
+    match /procurements/{procurementId} {
+      allow read: if true;
+      allow create, update: if isValidProcurement(request.resource.data);
+      allow delete: if true;
+    }
+
+    match /todos/{todoId} {
+      allow read: if true;
+      allow create, update: if isValidTodo(request.resource.data);
+      allow delete: if true;
+    }
+
+    match /vendors/{vendorId} {
+      allow read: if true;
+      allow create, update: if isValidVendor(request.resource.data);
+      allow delete: if true;
+    }
+
+    match /snapshots/{snapshotId} {
+      allow read, write: if true;
+    }
+
+    // Default test connection doc allowed for connection health checks
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+  }
+}

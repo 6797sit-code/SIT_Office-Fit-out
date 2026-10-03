@@ -1,0 +1,134 @@
+{
+  "entities": {
+    "projectInfo": {
+      "title": "ProjectInfo",
+      "description": "General office renovation project metadata",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 200 },
+        "address": { "type": "string", "maxLength": 300 },
+        "parkingInfo": { "type": "string", "maxLength": 300 },
+        "securityInfo": { "type": "string", "maxLength": 300 },
+        "designer": { "type": "string", "maxLength": 100 },
+        "designerContact": { "type": "string", "maxLength": 100 },
+        "designerPhone": { "type": "string", "maxLength": 50 },
+        "startDate": { "type": "string", "maxLength": 20 },
+        "targetEndDate": { "type": "string", "maxLength": 20 },
+        "budgetTotal": { "type": "number" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["name", "startDate", "targetEndDate"]
+    },
+    "milestoneTask": {
+      "title": "MilestoneTask",
+      "description": "Construction milestone tasks across 14 trades",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 50 },
+        "trade": { "type": "string", "maxLength": 50 },
+        "name": { "type": "string", "maxLength": 200 },
+        "startDate": { "type": "string", "maxLength": 20 },
+        "endDate": { "type": "string", "maxLength": 20 },
+        "actionType": { "type": "string", "maxLength": 50 },
+        "progress": { "type": "number" },
+        "status": { "type": "string", "maxLength": 50 },
+        "contractorName": { "type": "string", "maxLength": 100 },
+        "contractorPhone": { "type": "string", "maxLength": 50 },
+        "isCriticalPath": { "type": "boolean" },
+        "location": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 500 },
+        "designerNotes": { "type": "string", "maxLength": 1000 },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "trade", "name", "startDate", "endDate", "progress", "status"]
+    },
+    "procurementItem": {
+      "title": "ProcurementItem",
+      "description": "Office and IT equipment procurement items",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 50 },
+        "category": { "type": "string", "maxLength": 50 },
+        "partNo": { "type": "string", "maxLength": 50 },
+        "name": { "type": "string", "maxLength": 200 },
+        "unitPrice": { "type": "number" },
+        "qtyMeetingRoom1": { "type": "number" },
+        "qtyMeetingRoom2": { "type": "number" },
+        "qtyClassroom": { "type": "number" },
+        "qtyGeneral": { "type": "number" },
+        "totalQty": { "type": "number" },
+        "subtotal": { "type": "number" },
+        "status": { "type": "string", "maxLength": 50 },
+        "orderDate": { "type": "string", "maxLength": 20 },
+        "expectedDeliveryDate": { "type": "string", "maxLength": 20 },
+        "installationDate": { "type": "string", "maxLength": 20 },
+        "vendorId": { "type": "string", "maxLength": 50 },
+        "vendorName": { "type": "string", "maxLength": 100 },
+        "vendorPhone": { "type": "string", "maxLength": 50 },
+        "notes": { "type": "string", "maxLength": 500 },
+        "linkedTrade": { "type": "string", "maxLength": 50 },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "category", "name", "unitPrice", "totalQty", "subtotal", "status"]
+    },
+    "todoItem": {
+      "title": "TodoItem",
+      "description": "Renovation site priority checklists and todos",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 50 },
+        "title": { "type": "string", "maxLength": 200 },
+        "completed": { "type": "boolean" },
+        "isUrgent": { "type": "boolean" },
+        "category": { "type": "string", "maxLength": 50 },
+        "dueDate": { "type": "string", "maxLength": 20 },
+        "assignedTo": { "type": "string", "maxLength": 50 },
+        "trade": { "type": "string", "maxLength": 50 },
+        "notes": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "title", "completed", "category"]
+    },
+    "vendorContact": {
+      "title": "VendorContact",
+      "description": "Contractor and equipment supplier contact directory",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 50 },
+        "name": { "type": "string", "maxLength": 100 },
+        "serviceCategory": { "type": "string", "maxLength": 100 },
+        "contactPerson": { "type": "string", "maxLength": 50 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "mobile": { "type": "string", "maxLength": 50 },
+        "email": { "type": "string", "maxLength": 100 },
+        "address": { "type": "string", "maxLength": 200 },
+        "notes": { "type": "string", "maxLength": 500 },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "serviceCategory"]
+    }
+  },
+  "firestore": {
+    "/projects/{projectId}": {
+      "schema": "projectInfo",
+      "description": "Project metadata collection"
+    },
+    "/milestones/{milestoneId}": {
+      "schema": "milestoneTask",
+      "description": "14 trades construction milestones"
+    },
+    "/procurements/{procurementId}": {
+      "schema": "procurementItem",
+      "description": "19 equipment procurement records"
+    },
+    "/todos/{todoId}": {
+      "schema": "todoItem",
+      "description": "Site punch-list and priority to-do items"
+    },
+    "/vendors/{vendorId}": {
+      "schema": "vendorContact",
+      "description": "Vendor contact directory"
+    }
+  }
+}
